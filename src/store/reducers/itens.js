@@ -237,10 +237,20 @@ const itensSlice = createSlice({
         if(item.id === payload) item.favorito = !item.favorito;
         return item;
       })
+    },
+    cadastrarItem: (state, { payload }) => {
+      state.push({...payload, id: uuid()});
+    },
+    mudarItem: (state, { payload }) => {
+      state = state.map(item => {
+        if(item.id === payload.id) {
+          return {...item, ...payload};
+        }
+        return item;
+      })
     }
   }
 });
 
-export const { mudarFavorito } = itensSlice.actions;
-
+export const { mudarFavorito, cadastrarItem, mudarItem } = itensSlice.actions;
 export default itensSlice.reducer;
